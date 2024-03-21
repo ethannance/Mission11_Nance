@@ -21,6 +21,11 @@ namespace Mission11_Nance.Infrastructure
         public ViewContext? ViewContext { get; set; }
         public string? PageAction { get; set; } //keeps track of which action we're on in the controller
         public PaginationInfo PageModel { get; set; }
+
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; } = String.Empty;
+        public string PageClassNormal {  get; set; } = String.Empty;
+        public string PageClassSelected { get; set; } = String.Empty;
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (ViewContext != null && PageModel != null)
@@ -34,6 +39,12 @@ namespace Mission11_Nance.Infrastructure
                     TagBuilder tag = new TagBuilder("a");
 
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new {pageNum = i});
+
+                    if (PageClassesEnabled)
+                    {
+                        tag.AddCssClass(PageClass);
+                        tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    }
                     tag.InnerHtml.Append(i.ToString());
 
                     result.InnerHtml.AppendHtml(tag);
