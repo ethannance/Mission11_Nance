@@ -1,5 +1,6 @@
 ﻿namespace Mission11_Nance.Models.ViewModels
 {
+    //Create variables for pagination specifications
     public class PaginationInfo
     {
         public int TotalItems { get; set; }
