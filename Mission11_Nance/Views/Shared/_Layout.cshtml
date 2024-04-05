@@ -16,14 +16,16 @@
         <span class="navbar-brand m-lg-2">LIBRARY</span>
     </div>
     <div class="row m-1 p-1">
-        <div call="col-3">Add filtering here later</div>
+        <div class="col-3">
+            <vc:book-types />
+        </div>
+        <div class="container col-9">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
-    <div class="container col-9">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

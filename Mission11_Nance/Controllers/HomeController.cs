@@ -14,13 +14,14 @@ namespace Mission11_Nance.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum)
+        public IActionResult Index(int pageNum, string? bookType)
         {
-            int pageSize = 10;
+            int pageSize = 3;
 
             var blah = new BooksListViewModel
             {
                 Books = _repo.Books
+                .Where(x => x.Classification == bookType || bookType == null)
                 .OrderBy(x => x.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
@@ -29,8 +30,10 @@ namespace Mission11_Nance.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = _repo.Books.Count()
-                }
+                    TotalItems = bookType == null ? _repo.Books.Count() : _repo.Books.Where(x => x.Classification == bookType).Count()
+                },
+
+                CurrentBookType = bookType
             };
 
 
